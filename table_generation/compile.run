@@ -1,0 +1,4 @@
+gcc -I/apps/cent7/gsl/2.4_gcc-4.8.5/include -c main.c
+gcc -I/apps/cent7/gsl/2.4_gcc-4.8.5/include -c writeToFile.c
+gcc -L/apps/cent7/gsl/2.4_gcc-4.8.5/lib main.o writeToFile.o -lgsl -lgslcblas -lm
+
