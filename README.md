@@ -1,6 +1,6 @@
 # Fermi-Dirac integral using a table method in MATLAB
 
-This script allows one to calculate Fermi-Dirac integral and its inverse in MATLAB using a table lookup method. The tables are dervied from GNU Scientific Library (GSL): https://www.gnu.org/software/gsl/doc/html/specfunc.html#fermi-dirac-function
+This script allows one to calculate Fermi-Dirac integral and its inverse in MATLAB using a table lookup method. The tables are dervied from GNU Scientific Library (GSL): https://www.gnu.org/software/gsl/doc/html/specfunc.html#fermi-dirac-function. This is a script in support of the Notes on Fermi-Dirac Integrals: https://arxiv.org/abs/0811.0116
 
 - **Calculate FD-Integral using table lookup.** No need to balance between speed and accuracy as in iterative methods.
 - **Batteries included.** Pre-made tables for common integrals are distributed with this package.
@@ -38,7 +38,7 @@ ans =
 ### Calculate Fermi Dirac integral inverses
 ```
 x=[0.7651, 0.8275, 0.8938];
-y = FD_order_1.get(x)
+y = FD_order_1.get_reverse(x)
 ```
 output
 ```
@@ -55,9 +55,15 @@ writeToFile.h: Header for writeToFile.c
 compile.run: shell script for compiling the program. Edit the file to setup correct paths to GSL
 
 ### Benchmark and speed tests
+The integral and its inverse are calculated using the same set of tables. The benchmark below shows the values for FD integral of orders supported in default. The lines are forward calculations of Fermi Dirac integrals, and the circles are results obtained in reverse.
+
 ![Benchmark](/test/benchmark.png)
 
+It is highly recommended to pass input in a single batch list, instead of calling "get" and "get_inverse" individually on each number. Plot below shows the calculation time vs. batch size for order 1/2.
+
 ![Time vs. batch size](/test/time_vs_batch_size.png)
+
+The plot below shows the calculation time vs. number of function calls for order 1/2. This illustrates the amount of slow down if the data has no choice but to be passed individually.
 
 ![Time vs. function calls](/test/time_vs_function_calls.png)
 
@@ -66,3 +72,10 @@ compile.run: shell script for compiling the program. Edit the file to setup corr
 1. Only part of my program requires FD integral calculation. Do I have to carry this large table-based object all the way through my program?
 
 Answer: No, it is recommended to get rid of the object if it is no longer needed. Just like how one erase any other MATLAB variables, `clear TBFD_integral_1`
+
+2. How does the program handle a list mixed with numbers that shall be handled by table-based and analytical methods?
+
+Answer: The program sorts the input and records the sorted index. The input is then segmented into three blocks: ones above, below, and within the table range. Each block is then solved analytically or using the table. The results are then merged into a single list, and the list is subsequently returned to original, pre-sorted order.
+
+## Contacts:
+For any question, please contact Xufeng Wang (wang159@purdue.edu) and Prof. Mark Lundstrom (lundstro@purdue.edu)
