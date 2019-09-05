@@ -55,9 +55,11 @@ writeToFile.h: Header for writeToFile.c
 compile.run: shell script for compiling the program. Edit the file to setup correct paths to GSL
 
 ### Benchmark and speed tests
-![GitHub Logo](/images/logo.png)
-![GitHub Logo](/images/logo.png)
-![GitHub Logo](/images/logo.png)
+![Benchmark](/test/benchmark.png)
+
+![Time vs. batch size](/test/time_vs_batch_size.png)
+
+![Time vs. function calls](/test/time_vs_function_calls.png)
 
 
 ## FAQs:
