@@ -71,7 +71,7 @@ The plot below shows the calculation time vs. number of function calls for order
 ## FAQs:
 1. Only part of my program requires FD integral calculation. Do I have to carry this large table-based object all the way through my program?
 
-Answer: No, it is recommended to get rid of the object if it is no longer needed. Just like how one erase any other MATLAB variables, `clear TBFD_integral_1`
+Answer: No, it is recommended to get rid of the object if it is no longer needed. Just like how one erase any other MATLAB variables, `clear FD_order_1`
 
 2. How does the program handle a list mixed with numbers that shall be handled by table-based and analytical methods?
 
